@@ -4,4 +4,38 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
 	version="3.0">
 	<!-- Add your deployment description here -->
+
+	<servlet>
+		<servlet-name>Login</servlet-name>
+		<servlet-class>at.ac.tuwien.big.we16.ue2.Controller.LoginServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Login</servlet-name>
+		<url-pattern>
+			C:\Users\Rares\IdeaProjects\WebEngineering2\src\main\java\at\ac\tuwien\big\we16\ue2\Controller\LoginServlet.java
+		</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>Overview</servlet-name>
+		<servlet-class>at.ac.tuwien.big.we16.ue2.Controller.OverviewServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Overview</servlet-name>
+		<url-pattern>
+			C:\Users\Rares\IdeaProjects\WebEngineering2\src\main\java\at\ac\tuwien\big\we16\ue2\Controller\OverviewServlet.java
+		</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>Details</servlet-name>
+		<servlet-class>at.ac.tuwien.big.we16.ue2.Controller.DetailsServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Details</servlet-name>
+		<url-pattern>
+			C:\Users\Rares\IdeaProjects\WebEngineering2\src\main\java\at\ac\tuwien\big\we16\ue2\Controller\DetailsServlet.java
+		</url-pattern>
+	</servlet-mapping>
+
 </web-app>
