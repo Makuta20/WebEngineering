@@ -10,8 +10,14 @@ public class User {
     HashMap<Item, Float> bidItems = new HashMap<>();
 	
 	public User(){
-		
-	}
+        this.credit += 1500;
+    }
+
+    public User(String email, String password){
+        this.email = email;
+        this.password = password;
+        this.credit += 1500;
+    }
 
 	public void addItem(Item item, float bid){
         if(credit > bid) {
