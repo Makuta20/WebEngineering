@@ -6,18 +6,27 @@ public class User {
 	
 	String email = null;
 	String password = null;
-	double credit = 0.0;
-	List<Item> bidItems = new LinkedList<Item>();
+	float credit = (float)0.0;
+    HashMap<Item, Float> bidItems = new HashMap<>();
 	
 	public User(){
 		
 	}
 
-	public void addItem(Item item){
-		bidItems.add(item);
+	public void addItem(Item item, float bid){
+        if(credit > bid) {
+            credit -= bid;
+            bidItems.put(item, bid);
+        }else
+            return;
 	}
+
 	public void removeItem(Item item){
-		bidItems.remove(item);
+        if(bidItems.containsKey(item)) {
+            credit += bidItems.get(item);
+            bidItems.remove(item);
+        }else
+            return;
 	}
 
 	public void setEmail(String e){
@@ -36,19 +45,19 @@ public class User {
 		return password;
 	}
 
-	public double getCredit() {
-		return credit;
-	}
+    public float getCredit() {
+        return credit;
+    }
 
-	public void setCredit(double credit) {
-		this.credit = credit;
-	}
+    public void setCredit(float credit) {
+        this.credit = credit;
+    }
 
-	public List<Item> getBidItems() {
-		return bidItems;
-	}
+    public HashMap<Item, Float> getBidItems() {
+        return bidItems;
+    }
 
-	public void setBidItems(List<Item> bidItems) {
-		this.bidItems = bidItems;
-	}
+    public void setBidItems(HashMap<Item, Float> bidItems) {
+        this.bidItems = bidItems;
+    }
 }
