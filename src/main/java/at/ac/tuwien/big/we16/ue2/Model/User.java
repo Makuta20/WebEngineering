@@ -1,11 +1,15 @@
 package at.ac.tuwien.big.we16.ue2.Model;
 
 import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.*;
 
 public class User {
 	
-	String email = null;
+	String firstName = null;
+    String lastName = null;
+
+    String email = null;
 	String password = null;
 	float credit = (float)0.0;
     int lostBids = 0;
@@ -59,8 +63,15 @@ public class User {
 	}
 
     public String getFormatedCurrency(){
-        DecimalFormat myFormatter = new DecimalFormat("###,###.00 €");
-        return myFormatter.format(credit);
+        NumberFormat numberFormat = NumberFormat.getInstance(Locale.GERMANY);
+        if (numberFormat instanceof DecimalFormat) {
+            ((DecimalFormat) numberFormat).applyPattern("###,##0.00 €");
+        }
+        return numberFormat.format(credit);
+    }
+
+    public String getFullName(){
+        return firstName + " " + lastName;
     }
 
     public int getLostBids() {
@@ -109,5 +120,21 @@ public class User {
 
     public void setBidItems(HashMap<Item, Float> bidItems) {
         this.bidItems = bidItems;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 }

@@ -18,52 +18,53 @@
 </head>
 <body data-decimal-separator="," data-grouping-separator=".">
 
-<a href="#productsheadline" class="accessibility">Zum Inhalt
-    springen</a>
+<a href="#productsheadline" class="accessibility">Zum Inhalt springen</a>
 
 <header aria-labelledby="bannerheadline">
-    <img class="title-image" src="../images/big-logo-small.png"
-         alt="BIG Bid logo">
+    <img class="title-image" src="../images/big-logo-small.png" alt="BIG Bid logo">
 
     <h1 class="header-title" id="bannerheadline">BIG Bid</h1>
     <nav aria-labelledby="navigationheadline">
         <h2 class="accessibility" id="navigationheadline">Navigation</h2>
         <ul class="navigation-list">
-            <li><a href="" class="button" accesskey="l">Abmelden</a></li>
+            <li><a href="logout.jsp" class="button" accesskey="l">Abmelden</a></li>
         </ul>
     </nav>
 </header>
 <div class="main-container">
     <aside class="sidebar" aria-labelledby="userinfoheadline">
+        <%
+            User tempUser = ((User)session.getAttribute("user"));
+        %>
         <div class="user-info-container">
-            <h2 class="accessibility" id="userinfoheadline">Benutzerdaten</h2>
-            <dl class="user-data properties">
-                <dt class="accessibility">Name:</dt>
-                <dd class="user-name">John Doe</dd>
-                <dt>Kontostand:</dt>
-                <dd>
-                    <span class="balance"><%=((User)session.getAttribute("user")).getFormatedCurrency() %></span>
-                </dd>
-                <dt>Laufend:</dt>
-                <dd>
-                    <span class="running-auctions-count"><%=((User)session.getAttribute("user")).getCurrentBids()  %></span> <span
-                        class="auction-label" data-plural="Auktionen"
-                        data-singular="Auktion">Auktionen</span>
-                </dd>
-                <dt>Gewonnen:</dt>
-                <dd>
-                    <span class="won-auctions-count"><%=((User)session.getAttribute("user")).getWonBids()  %></span> <span
-                        class="auction-label" data-plural="Auktionen"
-                        data-singular="Auktion">Auktionen</span>
-                </dd>
-                <dt>Verloren:</dt>
-                <dd>
-                    <span class="lost-auctions-count"><%=((User)session.getAttribute("user")).getLostBids()  %></span> <span
-                        class="auction-label" data-plural="Auktionen"
-                        data-singular="Auktion">Auktionen</span>
-                </dd>
-            </dl>
-        </div>
+        <h2 class="accessibility" id="userinfoheadline">Benutzerdaten</h2>
+        <dl class="user-data properties">
+            <dt class="accessibility">Name:</dt>
+            <dd class="user-name"><a style="text-decoration: none; color: #333;" href="editinfo.jsp"><% if(tempUser.getFirstName()!=null) { %> <%=tempUser.getFullName()%> <% }else{ %> <%=tempUser.getEmail()%> <%} %></a></dd>
+            <dt>Kontostand:</dt>
+            <dd>
+                <span class="balance"><%=tempUser.getFormatedCurrency() %></span>
+            </dd>
+            <dt>Laufend:</dt>
+            <dd>
+                <span class="running-auctions-count"><%=tempUser.getCurrentBids()  %></span> <span
+                    class="auction-label" data-plural="Auktionen"
+                    data-singular="Auktion">Auktionen</span>
+            </dd>
+            <dt>Gewonnen:</dt>
+            <dd>
+                <span class="won-auctions-count"><%=tempUser.getWonBids()  %></span> <span
+                    class="auction-label" data-plural="Auktionen"
+                    data-singular="Auktion">Auktionen</span>
+            </dd>
+            <dt>Verloren:</dt>
+            <dd>
+                <span class="lost-auctions-count"><%=tempUser.getLostBids()  %></span> <span
+                    class="auction-label" data-plural="Auktionen"
+                    data-singular="Auktion">Auktionen</span>
+            </dd>
+        </dl>
+    </div>
         <div class="recently-viewed-container">
             <h3 class="recently-viewed-headline">Zuletzt angesehen</h3>
             <ul class="recently-viewed-list"></ul>
@@ -75,7 +76,7 @@
             <% for(Item i : ProductList.getItemList()){ %>
             <div class="product-outer"
                  data-product-id="<%=i.getId()%>">
-                <a href="" class="product expired "
+                <a href="details.jsp?id=<%=i.getId()%>" class="product expired "
                    title="Mehr Informationen zu <%=i.getName()%>"> <img
                         class="product-image" src="../images/<%=i.getImg()%>" alt="">
                     <dl class="product-properties properties">
@@ -87,7 +88,7 @@
                         <dd data-end-time="2016,03,14,14,30,23,288"
                             data-end-text="abgelaufen" class="product-time js-time-left"></dd>
                         <dt>Höchstbietende/r</dt>
-                        <dd class="product-highest"><% if(i.getHighestBidder()!=null) i.getHighestBidder().getEmail(); else {%> No Bidder <%}%></dd>
+                        <dd class="product-highest"><% if(i.getHighestBidder()!=null) { if(tempUser.getFirstName()!=null) { %> <%=tempUser.getFullName()%> <% }else{ %> <%=tempUser.getEmail()%> <%} }else { %> No Bidder <% } %></dd>
                     </dl>
                 </a>
             </div>

@@ -14,6 +14,14 @@ public class ProductList {
 
     static ProductList productList = null;
 
+    public static Item getItem(int id){
+        for(Item i : itemList){
+            if(i.getId() == id)
+                return i;
+        }
+        return null;
+    }
+
     public static List<Item> getItemList(){
         if(productList == null){
             productList = new ProductList();

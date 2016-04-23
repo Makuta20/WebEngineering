@@ -2,6 +2,9 @@ package at.ac.tuwien.big.we16.ue2.Model;
 
 import at.ac.tuwien.big.we16.ue2.productdata.JSONDataLoader;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.util.Locale;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class Item {
@@ -67,6 +70,14 @@ public class Item {
 
     public void setHighestBid(float highestBid) {
         this.highestBid = highestBid;
+    }
+
+    public String getFormatedCurrency(){
+        NumberFormat numberFormat = NumberFormat.getInstance(Locale.GERMANY);
+        if (numberFormat instanceof DecimalFormat) {
+            ((DecimalFormat) numberFormat).applyPattern("###,##0.00 €");
+        }
+        return numberFormat.format(highestBid);
     }
 
     public String getName() {
