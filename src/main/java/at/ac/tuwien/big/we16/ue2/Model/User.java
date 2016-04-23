@@ -1,5 +1,6 @@
 package at.ac.tuwien.big.we16.ue2.Model;
 
+import java.text.DecimalFormat;
 import java.util.*;
 
 public class User {
@@ -7,6 +8,8 @@ public class User {
 	String email = null;
 	String password = null;
 	float credit = (float)0.0;
+    int lostBids = 0;
+    int wonBids = 0;
     HashMap<Item, Float> bidItems = new HashMap<>();
 	
 	public User(){
@@ -19,7 +22,26 @@ public class User {
         this.credit += 1500;
     }
 
-	public void addItem(Item item, float bid){
+    @Override
+    public String toString() {
+        return "User{" +
+                "email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", credit=" + credit +
+                ", bidItems=" + bidItems +
+                '}';
+    }
+
+    public void wonBid(Item item){
+        wonBids++;
+        bidItems.remove(item);
+    }
+
+    public int getCurrentBids(){
+        return bidItems.size();
+    }
+
+    public void addItem(Item item, float bid){
         if(credit > bid) {
             credit -= bid;
             bidItems.put(item, bid);
@@ -31,11 +53,33 @@ public class User {
         if(bidItems.containsKey(item)) {
             credit += bidItems.get(item);
             bidItems.remove(item);
+            lostBids++;
         }else
             return;
 	}
 
-	public void setEmail(String e){
+    public String getFormatedCurrency(){
+        DecimalFormat myFormatter = new DecimalFormat("###,###.00 €");
+        return myFormatter.format(credit);
+    }
+
+    public int getLostBids() {
+        return lostBids;
+    }
+
+    public void setLostBids(int lostBids) {
+        this.lostBids = lostBids;
+    }
+
+    public int getWonBids() {
+        return wonBids;
+    }
+
+    public void setWonBids(int wonBids) {
+        this.wonBids = wonBids;
+    }
+
+    public void setEmail(String e){
 		this.email = e;
 	}
 

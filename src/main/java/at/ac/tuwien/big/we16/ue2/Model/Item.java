@@ -2,9 +2,15 @@ package at.ac.tuwien.big.we16.ue2.Model;
 
 import at.ac.tuwien.big.we16.ue2.productdata.JSONDataLoader;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 public class Item {
-	
-	User highestBidder = null;
+
+    private static final AtomicInteger globalID = new AtomicInteger(0);
+    private final int id;
+
+
+    User highestBidder = null;
 	float highestBid = (float)0.0;
 	String name = null;
 	String type = null;
@@ -13,10 +19,11 @@ public class Item {
     String img = null;
 	
 	public Item(){
-		
+		id = globalID.incrementAndGet();
 	}
 
     public Item(JSONDataLoader.Music music){
+        id = globalID.incrementAndGet();
         this.type = "Music Album";
         this.name = music.getAlbum_name();
         this.author = music.getArtist();
@@ -25,6 +32,7 @@ public class Item {
     }
 
     public Item(JSONDataLoader.Movie movie){
+        id = globalID.incrementAndGet();
         this.type = "Film";
         this.name = movie.getTitle();
         this.author = movie.getDirector();
@@ -33,11 +41,16 @@ public class Item {
     }
 
     public Item(JSONDataLoader.Book book){
+        id = globalID.incrementAndGet();
         this.type = "Book";
         this.name = book.getTitle();
         this.author = book.getAuthor();
         this.year = Integer.parseInt(book.getYear());
         this.img = book.getImg();
+    }
+
+    public int getId() {
+        return id;
     }
 
     public User getHighestBidder() {

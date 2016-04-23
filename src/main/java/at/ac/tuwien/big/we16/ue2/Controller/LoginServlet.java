@@ -18,6 +18,8 @@ public class LoginServlet extends HttpServlet{
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 
+        System.out.println("Servlet used!");
+
         HttpSession session = request.getSession(true);
 
         User user = new User(request.getParameter("email"), request.getParameter("password"));
