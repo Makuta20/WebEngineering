@@ -31,7 +31,7 @@
 </header>
 <div class="main-container">
     <main aria-labelledby="formheadline">
-        <form class="form" method="post">
+        <form class="form" method="post" action="log.jsp">
             <h2 id="formheadline" class="registration-headline">Anmelden</h2>
             <div class="form-row">
                 <label class="form-label" for="email-input"> Email </label> <input
@@ -51,6 +51,9 @@
         </form>
     </main>
 </div>
+
+
+
 <footer> © 2016 BIG Bid </footer>
 <script src="/scripts/jquery.js"></script>
 <script src="/scripts/framework.js"></script>
