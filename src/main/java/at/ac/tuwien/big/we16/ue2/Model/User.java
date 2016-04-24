@@ -47,8 +47,14 @@ public class User {
 
     public void addItem(Item item, float bid){
         if(credit > bid) {
-            credit -= bid;
-            bidItems.put(item, bid);
+            if((item.getHighestBidder() != null) && item.getHighestBidder().equals(this)){
+                credit = credit - (bid - item.getHighestBid());
+                bidItems.put(item,bid);
+            }else{
+                credit -= bid;
+                bidItems.put(item, bid);
+            }
+
         }else
             return;
 	}
@@ -137,4 +143,23 @@ public class User {
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        User user = (User) o;
+
+        if (Float.compare(user.credit, credit) != 0) return false;
+        if (lostBids != user.lostBids) return false;
+        if (wonBids != user.wonBids) return false;
+        if (!firstName.equals(user.firstName)) return false;
+        if (!lastName.equals(user.lastName)) return false;
+        if (!email.equals(user.email)) return false;
+        if (!password.equals(user.password)) return false;
+        return bidItems.equals(user.bidItems);
+
+    }
+
 }
